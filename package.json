@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Discord Language Learn's API",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "dev": "nodemon server.js",
     "start": "node server.js"
@@ -19,7 +20,8 @@
   },
   "homepage": "https://github.com/QuimTorra/discord-language-learn-api#readme",
   "dependencies": {
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "firebase": "^9.6.6"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"

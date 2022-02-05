@@ -1,10 +1,26 @@
-const app = require('express')()
+import express from "express"
+import { initializeApp } from "firebase/app"
+import { collection, getDocs, getFirestore, query, where } from "firebase/firestore"
+import { firebaseConfig } from "./firebaseConfig.js"
+
+const fApp = initializeApp(firebaseConfig)
+const db = getFirestore()
+const app = express()
 const PORT = process.env.PORT || 8080
+
+const serverRef = collection(db, "server")
 
 // GET
 // Everything
-app.get('/:lang', (req, res) => {
-  res.send(`This API is responding correctly for ${req.params.lang}`)
+app.get('/:lang', async (req, res) => {
+  const q = query(serverRef, where("language", "==", req.params.lang.toLowerCase()))
+  const querySnapshot = await getDocs(q)
+  let docs = []
+  querySnapshot.forEach((doc) => {
+
+    console.log(doc.id,  doc.data())
+  })
+  res.send(querySnapshot)
 })
 
 // Only SERVERS
