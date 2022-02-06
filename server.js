@@ -40,7 +40,7 @@ app.get('/:lang/:native', async (req, res) => {
   querySnapshot.forEach((doc) => {
     docs.push(doc.data())
   })
-  res.send(docs)
+  res.send(JSON.parse(docs))
 })
 
 // POST
