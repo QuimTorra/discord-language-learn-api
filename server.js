@@ -1,4 +1,5 @@
 import express from "express"
+import cors from 'cors'
 import { initializeApp } from "firebase/app"
 import { collection, getDocs, getDocsFromCache, getFirestore, query, where } from "firebase/firestore"
 import { firebaseConfig } from "./firebaseConfig.js"
@@ -10,6 +11,8 @@ const PORT = process.env.PORT || 8080
 
 const serverRef = collection(db, "servers")
 
+app.use(cors({ origin: 'http://localhost:3000' }))
+
 // GET
 // Everything
 app.get('/native/:nat', async (req, res) => {
@@ -18,7 +21,9 @@ app.get('/native/:nat', async (req, res) => {
   const querySnapshot = await getDocs(q)
   let docs = []
   querySnapshot.forEach((doc) => {
-    docs.push(doc.data())
+    let data = doc.data()
+    data["id"] = doc.id
+    docs.push(data)
   })
   res.send(docs)
 })
@@ -28,7 +33,9 @@ app.get('/:lang', async (req, res) => {
   const querySnapshot = await getDocs(q)
   let docs = []
   querySnapshot.forEach((doc) => {
-    docs.push(doc.data())
+    let data = doc.data()
+    data["id"] = doc.id
+    docs.push(data)
   })
   res.send(docs)
 })
@@ -38,9 +45,11 @@ app.get('/:lang/:native', async (req, res) => {
   const querySnapshot = await getDocs(q)
   let docs = []
   querySnapshot.forEach((doc) => {
-    docs.push(doc.data())
+    let data = doc.data()
+    data["id"] = doc.id
+    docs.push(data)
   })
-  res.send(JSON.parse(docs))
+  res.send(docs)
 })
 
 // POST

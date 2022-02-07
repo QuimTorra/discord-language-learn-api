@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/QuimTorra/discord-language-learn-api#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.2",
     "firebase": "^9.6.6"
   },
